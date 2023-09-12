@@ -33,8 +33,8 @@ class Apponiments():
         self.appointment_id =None
         Apponiments.available_appointments.append(self)
 
-    @classmethod
-    def book_slots(cls,date, time, hospital_name):
+    @staticmethod
+    def book_slots(date, time, hospital_name):
             for appointment in Apponiments.available_appointments:
                  if (appointment.date).strftime(Config.DATE_FORMAT) == date and appointment.time == time \
                     and (appointment.hospital_name).lower() == hospital_name.lower():
@@ -45,8 +45,8 @@ class Apponiments():
                         f'and the appointment ID is: {appointment.appointment_id}'
             return 'Slot is already booked'
     
-    @classmethod
-    def cancel_solts(cls,appointment_id):
+    @staticmethod
+    def cancel_solts(appointment_id):
         for appointment in Apponiments.booked_appointments:
             if appointment.appointment_id == appointment_id:
                  appointment.available = True
@@ -54,7 +54,7 @@ class Apponiments():
                  return f'Your appointment: {appointment_id} is cancelled successfully'
         return 'Invalid appointment ID or your appointment is already been cancelled'
     
-    @classmethod
+    @staticmethod
     def get_booked_appointments(cls):
         booked_appointments_info = []
         for appointment in cls.booked_appointments:
@@ -66,10 +66,10 @@ class Apponiments():
             })
         return booked_appointments_info
     
-    @classmethod
-    def get_available_appointments(cls):
+    @staticmethod
+    def get_available_appointments():
         available_appointments_info = []
-        for appointment in cls.available_appointments:
+        for appointment in Apponiments.available_appointments:
             available_appointments_info.append({
                 'date': appointment.date.strftime('%Y-%m-%d'),
                 'time': appointment.time,
@@ -77,8 +77,8 @@ class Apponiments():
             })
         return available_appointments_info
 
-    @classmethod
-    def get_reschedule_appointments(cls, appointment_id, date, time, hospital_name):
+    @staticmethod
+    def get_reschedule_appointments(appointment_id, date, time, hospital_name):
         cancellation_appointment = None
         for appointment in Apponiments.booked_appointments:
             if appointment.appointment_id == appointment_id:
@@ -117,8 +117,8 @@ def add_appointments():
     
 def book_slots():
         for hospital in ["Hospital A"]:
-                for appointment in appointments:
-                    appointment = appointment.book_slots(datetime(2023, 9, 1), '9:00', hospital)
+            for appointment in appointments:
+                appointment = appointment.book_slots(datetime(2023, 9, 1), '9:00', hospital)
 
 
 if __name__ == '__main__':
