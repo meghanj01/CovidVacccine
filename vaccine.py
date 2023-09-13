@@ -1,6 +1,5 @@
 from flask import Flask, request, g, jsonify, abort ,make_response
-from app import vaccine_app
-import  appointments 
+import appointments 
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import re
